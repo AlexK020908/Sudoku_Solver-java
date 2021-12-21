@@ -24,11 +24,11 @@ public class Sudoku {
 
 
         for (int i = 0 ; i < N ; i++) {
-            if (board[row][i] == num) return false;
-            if (board[i][column] == num) return false;
+            if (board[row][i] == (char) (num + '0')) return false;
+            if (board[i][column] == (char) (num + '0')) return false;
         }
 
-        return !itemsContainedInBox(board, startRow, startColumn).contains((char) num);
+        return !itemsContainedInBox(board, startRow, startColumn).contains((char) (num + '0'));
     }
 
     //EFFECT: returns true if the number is contained in the box
@@ -81,7 +81,7 @@ public class Sudoku {
     //EFFECT: place a valid number at the specified row and column only if the placement is allowed
     public void placeNewNum(int row, int column, int num, char[][] board) {
         if (isValidPlacement(row, column, num, board)) {
-            board[row][column] = (char) num;
+            board[row][column] = (char) (num + '0');
         }
     }
 
