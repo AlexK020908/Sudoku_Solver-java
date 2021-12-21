@@ -21,11 +21,16 @@ public class Sudoku {
     }
 
 
+
     //EFFECT: returns true if placement is valid
-    public boolean isValidPlacement(int row, int column) {
-        int boxIndex = (row / n) * n + (column / n) * n;
+    public boolean isValidPlacement(int row, int column, int num) {
+        int boxIndex = getBoxIndex(row, column);
 
         return false;
+    }
+
+    private int getBoxIndex(int row, int column) {
+        return (row / n) * n + (column / n) * n;
     }
 
     //EFFECT: place a valid number at the specified row and column
