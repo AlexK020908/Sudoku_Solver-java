@@ -119,15 +119,8 @@ public class Sudoku {
     }
 
     //EFFECT: solve the given board
-    public char[][] solve() {
-
-        //base case
-
-
-        //recursion
-
-
-        return new char[][]{};
+    public void solve() {
+        backTrack(0, 0);
     }
 
 }
