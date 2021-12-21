@@ -92,27 +92,30 @@ public class Sudoku {
     }
 
 
-    public void backTrack(int row, int column) {
+    public boolean backTrack(int row, int column) {
+        if (row == N - 1 && column == N-1) {
+            isFinished = true;
+        } else if (column == N - 1){
+            row += 1;
+            column = 0;
+        }
+
         if (board[row][column] == '.') {
             //iterate all possible options and call backtrack if there is a mistake
             for (int i = 1 ; i <= 9 ; i++) {
                 if (isValidPlacement(row, column, i , board)) {
                     placeNewNum(row, column, i, board);
-                    if (row == N - 1 && column == N-1) {
-                        isFinished = true;
-                    } else if (column == N - 1) {
-                        backTrack(row + 1, 0);
-                    } else {
-                        backTrack(row, column + 1);
+                    if (backTrack(row, column + 1)){
+                        return true;
+                    } else{
+                        removePlacement(row, column, board);
                     }
                     //now we to be able to remove the num if somehow backtrack says there isn't a choice
                 }
             }
         }
-
+        return false;
     }
-
-
 
     //EFFECT: solve the given board
     public char[][] solve() {
@@ -121,8 +124,6 @@ public class Sudoku {
 
 
         //recursion
-
-
 
 
         return new char[][]{};
