@@ -92,7 +92,7 @@ public class Sudoku {
     }
 
 
-    public boolean backTrack(int row, int column) {
+    public boolean backTrack(int row, int column, char[][] board) {
         if (row == N - 1 && column == N-1) {
             isFinished = true;
             return true;
@@ -106,7 +106,7 @@ public class Sudoku {
             for (int i = 1 ; i <= 9 ; i++) {
                 if (isValidPlacement(row, column, i , board)) {
                     placeNewNum(row, column, i, board);
-                    if (backTrack(row, column + 1)){
+                    if (backTrack(row, column + 1, board)){
                         return true;
                     } else{
                         removePlacement(row, column, board);
@@ -119,8 +119,8 @@ public class Sudoku {
     }
 
     //EFFECT: solve the given board
-    public void solve() {
-        backTrack(0, 0);
+    public void solve(char[][] board) {
+        backTrack(0, 0, board);
     }
 
 }
