@@ -151,7 +151,7 @@ public class Sudoku {
 
     }
 
-    //EFFECT: solve the given board
+    //EFFECT: solve the given board.
     public void solve(char[][] board) {
         backTrack(0, 0, board);
     }
