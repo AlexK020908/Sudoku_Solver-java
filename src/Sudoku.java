@@ -21,20 +21,78 @@ public class Sudoku {
     }
 
 
+    //EFFECT: returns true if placement of num is valid in the given board cell
+    public boolean isValidPlacement(int row, int column, int num, char[][] board) {
 
-    //EFFECT: returns true if placement is valid
-    public boolean isValidPlacement(int row, int column, int num) {
         int boxIndex = getBoxIndex(row, column);
+        int startRow = getStartRow(boxIndex);
+        int startColumn = getStartColumn(boxIndex);
+
+
+        for (int i = 0 ; i < N ; i++) {
+            if (board[row][i] == num) return false;
+            if (board[i][column] == num) return false;
+            if (containedInBox(board, startRow, startColumn,num)) return false;
+        }
+
+        return true;
+    }
+
+    //EFFECT: returns true if the number is contained in the box
+    private boolean containedInBox(char[][] board, int startRow, int startColumn, int num) {
+        int endRow = startRow + 2;
+        int endColumn = startColumn + 2;
+
+        for (int i = startRow ; i <= endRow ; i++) {
+            for (int j = startColumn ; j <= endColumn ; j++) {
+                if (board[i][j] == num) {
+                    return true;
+                }
+            }
+        }
 
         return false;
     }
 
+
+    //effect: get the start column
+    private int getStartColumn(int boxIndex) {
+        int start= 0;
+        if (boxIndex % 3 == 0) {
+            start = 0;
+        } else if (boxIndex % 3 == 1 || boxIndex == 1) {
+            start = 3;
+        } else if (boxIndex % 3 == 2) {
+            start = 6;
+        }
+        return start;
+    }
+
+
+    //effect: get the box index
     private int getBoxIndex(int row, int column) {
         return (row / n) * n + (column / n) * n;
     }
 
-    //EFFECT: place a valid number at the specified row and column
-    public boolean placeNewNum(int row, int column) {
+    //effect: get the start row
+    private int getStartRow(int boxIndex) {
+        int startRow = 0;
+        if (boxIndex % 3 == 0) {
+            startRow = boxIndex;
+        } if (boxIndex % 3 == 1) {
+            startRow = boxIndex - 1;
+        } if (boxIndex % 3 == 2) {
+            startRow = boxIndex - 2;
+        }
+        return startRow;
+    }
+
+    //EFFECT: place a valid number at the specified row and column only if the placement is allowed
+    public boolean placeNewNum(int row, int column, int num, char[][] board) {
+        if (isValidPlacement(row, column, num, board)) {
+            board[row][column] = (char) num;
+            return true;
+        }
         return false;
     }
 
