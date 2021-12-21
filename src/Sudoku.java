@@ -24,11 +24,11 @@ public class Sudoku {
 
 
         for (int i = 0 ; i < N ; i++) {
-            if (board[row][i] == num) return false;
-            if (board[i][column] == num) return false;
+            if (board[row][i] == (char) (num + '0')) return false;
+            if (board[i][column] == (char) (num + '0')) return false;
         }
 
-        return !itemsContainedInBox(board, startRow, startColumn).contains((char) num);
+        return !(itemsContainedInBox(board, startRow, startColumn).contains((char) (num + '0')));
     }
 
     //EFFECT: returns true if the number is contained in the box
@@ -81,7 +81,7 @@ public class Sudoku {
     //EFFECT: place a valid number at the specified row and column only if the placement is allowed
     public void placeNewNum(int row, int column, int num, char[][] board) {
         if (isValidPlacement(row, column, num, board)) {
-            board[row][column] = (char) num;
+            board[row][column] = (char) (num + '0');
         }
     }
 
@@ -118,7 +118,7 @@ public class Sudoku {
 //        return false;
 //    }
 
-    public boolean backTrack(int row, int column, char[][] board) {
+    public void backTrack(int row, int column, char[][] board) {
         if (board[row][column] == '.') {
             //iterate all possible options and call backtrack if there is a mistake
             for (int i = 1; i <= 9; i++) {
@@ -126,28 +126,28 @@ public class Sudoku {
                     placeNewNum(row, column, i, board);
                     if (row == N - 1 && column == N - 1) {
                         isFinished = true;
-                        return true;
-                    } else if (column == N - 1 && row < N - 1) {
+                    } else if (column == N - 1) {
                         backTrack(row + 1, 0, board);
-                    } else if (row == N -1 && column < N - 1 ){
+                    } else {
                         backTrack(row, column + 1, board);
                     }
                     //note we are only gonna reach here once we are done traversing
                     //the whole soduko.
                     if (!isFinished) {
                         removePlacement(row, column, board);
-                        return false;
                     }
                 }
             }
         } else if (row == N - 1 && column == N - 1) {
             isFinished = true;
-            return true;
+
+        } else if  (column == N - 1 && row < N - 1) {
+            backTrack(row + 1, 0, board);
         } else if (column == N - 1) {
             backTrack(row + 1, 0, board);
+        } else  {
+            backTrack(row, column + 1 , board);
         }
-
-        return backTrack(row, column + 1, board);
 
     }
 
