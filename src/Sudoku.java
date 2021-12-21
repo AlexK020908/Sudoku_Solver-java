@@ -4,12 +4,14 @@ public class Sudoku {
 
     public static final int n = 3;
     public static final int N = n * n;
+    private boolean isFinished;
 
     //represents a 9 by 9 board. first bracket is column, second is row
     private char[][] board;
 
     public Sudoku(char[][] board) {
         this.board = board;
+        this.isFinished = false;
     }
 
 
@@ -24,10 +26,9 @@ public class Sudoku {
         for (int i = 0 ; i < N ; i++) {
             if (board[row][i] == num) return false;
             if (board[i][column] == num) return false;
-            if (itemsContainedInBox(board, startRow, startColumn).contains((char) num)) return false;
         }
 
-        return true;
+        return !itemsContainedInBox(board, startRow, startColumn).contains((char) num);
     }
 
     //EFFECT: returns true if the number is contained in the box
@@ -92,6 +93,22 @@ public class Sudoku {
 
 
     public void backTrack(int row, int column) {
+        if (board[row][column] == '.') {
+            //iterate all possible options and call backtrack if there is a mistake
+            for (int i = 1 ; i <= 9 ; i++) {
+                if (isValidPlacement(row, column, i , board)) {
+                    placeNewNum(row, column, i, board);
+                    if (row == N - 1 && column == N-1) {
+                        isFinished = true;
+                    } else if (column == N - 1) {
+                        backTrack(row + 1, 0);
+                    } else {
+                        backTrack(row, column + 1);
+                    }
+                    //now we to be able to remove the num if somehow backtrack says there isn't a choice
+                }
+            }
+        }
 
     }
 
