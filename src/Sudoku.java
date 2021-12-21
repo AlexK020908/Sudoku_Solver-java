@@ -92,30 +92,63 @@ public class Sudoku {
     }
 
 
-    public boolean backTrack(int row, int column, char[][] board) {
-        if (row == N - 1 && column == N-1) {
-            isFinished = true;
-            return true;
-        } else if (column == N - 1){
-            row += 1;
-            column = 0;
-        }
+//    public boolean backTrack(int row, int column, char[][] board) {
+//        if (row == N - 1 && column == N-1) {
+//            isFinished = true;
+//            return true;
+//        } else if (column == N - 1){
+//            row += 1;
+//            column = 0;
+//        }
+//
+//        if (board[row][column] == '.') {
+//            //iterate all possible options and call backtrack if there is a mistake
+//            for (int i = 1 ; i <= 9 ; i++) {
+//                if (isValidPlacement(row, column, i , board)) {
+//                    placeNewNum(row, column, i, board);
+//                    if (backTrack(row, column + 1, board)){
+//                        return true;
+//                    } else{
+//                        removePlacement(row, column, board);
+//                    }
+//                    //now we to be able to remove the num if somehow backtrack says there isn't a choice
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
+    public boolean backTrack(int row, int column, char[][] board) {
         if (board[row][column] == '.') {
             //iterate all possible options and call backtrack if there is a mistake
-            for (int i = 1 ; i <= 9 ; i++) {
-                if (isValidPlacement(row, column, i , board)) {
+            for (int i = 1; i <= 9; i++) {
+                if (isValidPlacement(row, column, i, board)) {
                     placeNewNum(row, column, i, board);
-                    if (backTrack(row, column + 1, board)){
+                    if (row == N - 1 && column == N - 1) {
+                        isFinished = true;
                         return true;
-                    } else{
-                        removePlacement(row, column, board);
+                    } else if (column == N - 1 && row < N - 1) {
+                        backTrack(row + 1, 0, board);
+                    } else if (row == N -1 && column < N - 1 ){
+                        backTrack(row, column + 1, board);
                     }
-                    //now we to be able to remove the num if somehow backtrack says there isn't a choice
+                    //note we are only gonna reach here once we are done traversing
+                    //the whole soduko.
+                    if (!isFinished) {
+                        removePlacement(row, column, board);
+                        return false;
+                    }
                 }
             }
+        } else if (row == N - 1 && column == N - 1) {
+            isFinished = true;
+            return true;
+        } else if (column == N - 1) {
+            backTrack(row + 1, 0, board);
         }
-        return false;
+
+        return backTrack(row, column + 1, board);
+
     }
 
     //EFFECT: solve the given board
