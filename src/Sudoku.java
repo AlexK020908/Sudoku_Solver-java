@@ -62,7 +62,7 @@ public class Sudoku {
 
     //effect: get the box index
     private int getBoxIndex(int row, int column) {
-        return (row / n) * n + (column / n) * n;
+        return (row / n) * n + (column / n);
     }
 
     //effect: get the start row
