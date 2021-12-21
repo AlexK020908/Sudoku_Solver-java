@@ -6,25 +6,24 @@ public class Sudoku {
 
     //we have a total of 9 boxes
     //each box has 9 components
-    private int[][] box;
+    private int[] box;
     //9 rows with each row has 9 indexes
-    private int[][] rows;
+    private int[] rows;
     //9 columns, each column with 9 indexes
-    private int[][] columns;
+    private int[] columns;
     //represents a 9 by 9 board. first bracket is column, second is row
     private char[][] board;
 
     public Sudoku() {
-        box = new int[N][N];
-        rows = new int[N][N];
-        columns = new int[N][N];
+        box = new int[N];
+        rows = new int[N];
+        columns = new int[N];
     }
 
 
     //EFFECT: returns true if placement is valid
     public boolean isValidPlacement(int row, int column) {
         int boxIndex = (row / n) * n + (column / n) * n;
-
 
         return false;
     }
