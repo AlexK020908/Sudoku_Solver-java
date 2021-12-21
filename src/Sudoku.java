@@ -21,8 +21,11 @@ public class Sudoku {
     }
 
 
-    //EFFECT: if placement is valid
+    //EFFECT: returns true if placement is valid
     public boolean isValidPlacement(int row, int column) {
+        int boxIndex = (row / n) * n + (column / n) * n;
+
+
         return false;
     }
 
@@ -46,6 +49,14 @@ public class Sudoku {
 
     //EFFECT: solve the given board
     public char[][] solve(char[][] board) {
+        //base case
+
+
+        //recursion
+
+
+
+
         return new char[][]{};
     }
 
