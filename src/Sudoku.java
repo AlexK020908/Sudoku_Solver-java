@@ -14,10 +14,11 @@ public class Sudoku {
     //represents a 9 by 9 board. first bracket is column, second is row
     private char[][] board;
 
-    public Sudoku() {
+    public Sudoku(char[][] board) {
         box = new int[N];
         rows = new int[N];
         columns = new int[N];
+        this.board = board;
     }
 
 
@@ -88,18 +89,16 @@ public class Sudoku {
     }
 
     //EFFECT: place a valid number at the specified row and column only if the placement is allowed
-    public boolean placeNewNum(int row, int column, int num, char[][] board) {
+    public void placeNewNum(int row, int column, int num, char[][] board) {
         if (isValidPlacement(row, column, num, board)) {
             board[row][column] = (char) num;
-            return true;
         }
-        return false;
     }
 
 
-    //EFFECT: remove the number placed at specified row and column
-    public boolean removePlacement(int row, int column) {
-        return false;
+    //EFFECT: remove the number placed at specified row and column .
+    public void removePlacement(int row, int column, int num, char[][] board) {
+        board[row][column] = '.';
     }
 
 
@@ -110,7 +109,8 @@ public class Sudoku {
 
 
     //EFFECT: solve the given board
-    public char[][] solve(char[][] board) {
+    public char[][] solve() {
+
         //base case
 
 
