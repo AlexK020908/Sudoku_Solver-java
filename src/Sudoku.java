@@ -95,6 +95,7 @@ public class Sudoku {
     public boolean backTrack(int row, int column) {
         if (row == N - 1 && column == N-1) {
             isFinished = true;
+            return true;
         } else if (column == N - 1){
             row += 1;
             column = 0;
