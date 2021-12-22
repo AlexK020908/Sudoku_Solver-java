@@ -12,5 +12,14 @@ public class main {
                 {'.','.','.','.','8','.','.','7','9'}};
         Sudoku sudoku = new Sudoku();
         sudoku.solve(board);
+
+        char c = '0';
+        System.out.println(c - '0');
+
+        Integer s = 6;
+        Integer.toString(s);
+
+        int i = 7;
+        Integer.toString(i);
     }
 }

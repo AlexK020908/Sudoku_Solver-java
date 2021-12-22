@@ -19,15 +19,7 @@ public class gui extends JFrame {
     Border exteriorBorder = new LineBorder(Color.BLACK, 2);
     Border dividerBorder = new LineBorder(Color.BLACK, 1);
 
-    String[][] reset_board = {{"5", "3", ".", ".", "7", ".", ".", ".", "."},
-                                {"6", ".", ".", "1", "9", "5", ".", ".", "."},
-                                {".", "9", "8", ".", ".", ".", ".", "6", "."},
-                                {"8", ".", ".", ".", "6", ".", ".", ".", "3"},
-                                {"4", ".", ".", "8", ".", "3", ".", ".", "1"},
-                                {"7", ".", ".", ".", "2", ".", ".", ".", "6"},
-                                {".", "6", ".", ".", ".", ".", "2", "8", "."},
-                                {".", ".", ".", "4", "1", "9", ".", ".", "5"},
-                                {".", ".", ".", ".", "8", ".", ".", "7", "9"}};
+    private char[][] reset_board;
 
     String[][] board_string = {{"5", "3", ".", ".", "7", ".", ".", ".", "."},
                                 {"6", ".", ".", "1", "9", "5", ".", ".", "."},
@@ -75,21 +67,28 @@ public class gui extends JFrame {
         }
 
         JPanel p1 = new JPanel();
-        JPanel[] panel = new JPanel[9];
-        p1.setLayout(new GridLayout(3,3));
-        for(i=0;i<9;i++)
-        {
-            panel[i]=new JPanel();
-            panel[i].setLayout(new GridLayout(3,3));
-            for(j=0;j< 9;j++)
-            {
-                panel[i].add(square[i][j]);
-
+        p1.setLayout(new GridLayout(9,9));
+        for (i = 0; i < 9 ; i++) {
+            for (j = 0 ; j < 9 ; j++) {
+               p1.add(square[i][j]);
             }
-            panel[i].setBorder(exteriorBorder);
-            p1.add(panel[i]);
         }
+
         p1.setBorder(exteriorBorder);
+//        p1.setLayout(new GridLayout(3,3));
+//        for(i=0;i<9;i++)
+//        {
+//            panel[i]=new JPanel();
+//            panel[i].setLayout(new GridLayout(3,3));
+//            for(j=0;j< 9;j++)
+//            {
+//                panel[i].add(square[i][j]);
+//
+//            }
+//            panel[i].setBorder(exteriorBorder);
+//            p1.add(panel[i]);
+//        }
+//        p1.setBorder(exteriorBorder);
 
         class RoundedBorder implements Border
         {
@@ -109,7 +108,7 @@ public class gui extends JFrame {
         }
 
 
-        reset=new JButton("Reset");
+        reset = new JButton("Reset");
         reset.setSize(new Dimension(10, 40));
         reset.setBorder(new RoundedBorder(10));
         reset.addActionListener(new ActionListener() {
@@ -131,19 +130,26 @@ public class gui extends JFrame {
         solve.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 JOptionPane.showMessageDialog(null, "you have pressed the Solve button");
+
+
                 char[][] solvedBoard =  s.solve(board);
                 for (int i = 0 ; i < 9 ; i++) {
                     for (int j = 0 ; j < 9 ; j++) {
                         char c = solvedBoard[i][j];
-                        String s = Character.toString(c);
-                        JTextField t = new JTextField(s);
-                        square[i][j] = t;
+                        Integer num =  c - '0';
+                        String s = Integer.toString(num);
+                        JTextField jTextField = square[i][j];
+                        jTextField.setText(s);
+                        jTextField.setVisible(true);
+                        repaint();
+
                     }
+                    repaint();
 
 
                 }
-
             }
         });
 
@@ -184,30 +190,29 @@ public class gui extends JFrame {
         });
 
 
-        puzzle=new JButton("New Puzzle");
+        puzzle=new JButton("create new puzzle");
         puzzle.setSize(new Dimension(10, 40));
         puzzle.setBorder(new RoundedBorder(10));
         puzzle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "you have pressed the New Puzzle button");
-                String[][] str_board = {{"5","3",".",".","7",".",".",".","."},
-                                        {"6",".",".","1","9","5",".",".","."},
-                                        {".","9","8",".",".",".",".","6","."},
-                                        {"8",".",".",".","6",".",".",".","3"},
-                                        {"4",".",".","8",".","3",".",".","1"},
-                                        {"7",".",".",".","2",".",".",".","6"},
-                                        {".","6",".",".",".",".","2","8","."},
-                                        {".",".",".","4","1","9",".",".","5"},
-                                        {".",".",".",".","8",".",".","7","9"}};
+
                 for (int i = 0 ; i < 9 ; i++) {
                     for (int j = 0 ; j < 9 ; j++) {
-                        if (!Objects.equals(str_board[i][j], ".")){
-                            JTextField t = new JTextField(str_board[i][j]);
-                            square[i][j] = t;
+                        JTextField t = square[i][j];
+                        String text = t.getText();
+                        if (text.length() > 0) {
+                            int k = Integer.parseInt(text);
+                            char c = (char) (k + '0');
+                            board[i][j] = c;
+                        } else {
+                            board[i][j] = '.';
                         }
-                        }
+
                     }
+                }
+                reset_board = board;
                 }
         });
 
