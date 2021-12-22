@@ -5,6 +5,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class gui extends JFrame {
@@ -20,6 +21,7 @@ public class gui extends JFrame {
     Border dividerBorder = new LineBorder(Color.BLACK, 1);
 
     private char[][] reset_board;
+    private char[][] solvedBoard = new char[9][9];
 
     String[][] board_string = {{"5", "3", ".", ".", "7", ".", ".", ".", "."},
                                 {"6", ".", ".", "1", "9", "5", ".", ".", "."},
@@ -33,11 +35,6 @@ public class gui extends JFrame {
 
     char[][] board = new char[9][9];
 
-//    for (int i = 0; i < 9; i++){
-//        for (int j = 0; j < 9; j++){
-//            board[i][j] = board_string[i][j].charAt(0);
-//        }
-//    }
 
     private final Sudoku s = new Sudoku();
 
@@ -134,7 +131,7 @@ public class gui extends JFrame {
                 JOptionPane.showMessageDialog(null, "you have pressed the Solve button");
 
 
-                char[][] solvedBoard =  s.solve(board);
+                 solvedBoard =  s.solve(board);
                 for (int i = 0 ; i < 9 ; i++) {
                     for (int j = 0 ; j < 9 ; j++) {
                         char c = solvedBoard[i][j];
@@ -160,31 +157,11 @@ public class gui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "you have pressed the Check Result button");
-                String[][] expected_board = {{"5","3","4","6","7","8","9","1","2"},
-                                            {"6","7","2","1","9","5","3","4","8"},
-                                            {"1","9","8","3","4","2","5","6","7"},
-                                            {"8","5","9","7","6","1","4","2","3"},
-                                            {"4","2","6","8","5","3","7","9","1"},
-                                            {"7","1","3","9","2","4","8","5","6"},
-                                            {"9","6","1","5","3","7","2","8","4"},
-                                            {"2","8","7","4","1","9","6","3","5"},
-                                            {"3","4","5","2","8","6","1","7","9"}};
-                boolean false_answer = false;
-                for (int i = 0 ; i < 9 ; i++) {
-                    for (int j = 0 ; j < 9 ; j++) {
-                        JTextField t = new JTextField(expected_board[i][j]);
-                        if (!Objects.equals(square[i][j], t)) {
-                            JOptionPane.showMessageDialog(null, "Incorrect!");
-                            false_answer = true;
-                            break;
-                        }
-                    }
-                    if (false_answer){
-                        break;
-                    }
-                }
-                if (!false_answer) {
-                    JOptionPane.showMessageDialog(null, "Correct!");
+
+                if ( solvedBoard == board) {
+                    JOptionPane.showMessageDialog(null, "nice! you did !");
+                } else {
+                    JOptionPane.showMessageDialog(null, "try again!");
                 }
             }
         });
@@ -248,4 +225,20 @@ public class gui extends JFrame {
         new gui();
     }
     //yes push dwd w
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        gui gui = (gui) o;
+        return Arrays.equals(solvedBoard, gui.solvedBoard) && Arrays.equals(board, gui.board);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Arrays.hashCode(solvedBoard);
+        result = 31 * result + Arrays.hashCode(board);
+        return result;
+    }
 }
