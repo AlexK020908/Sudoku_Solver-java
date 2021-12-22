@@ -1,4 +1,5 @@
 public class main {
+    //wd
     public static void main(String[] args) {
         char[][] board =
                 {{'5','3','.','.','7','.','.','.','.'},
