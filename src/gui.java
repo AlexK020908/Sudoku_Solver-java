@@ -72,20 +72,7 @@ public class gui extends JFrame {
         }
 
         p1.setBorder(exteriorBorder);
-//        p1.setLayout(new GridLayout(3,3));
-//        for(i=0;i<9;i++)
-//        {
-//            panel[i]=new JPanel();
-//            panel[i].setLayout(new GridLayout(3,3));
-//            for(j=0;j< 9;j++)
-//            {
-//                panel[i].add(square[i][j]);
-//
-//            }
-//            panel[i].setBorder(exteriorBorder);
-//            p1.add(panel[i]);
-//        }
-//        p1.setBorder(exteriorBorder);
+
 
         class RoundedBorder implements Border
         {
