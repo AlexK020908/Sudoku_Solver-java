@@ -247,5 +247,5 @@ public class gui extends JFrame {
     public static void main(String[] args) {
         new gui();
     }
-    //yes push
+    //yes push dwd w
 }
