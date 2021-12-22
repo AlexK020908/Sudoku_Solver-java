@@ -132,19 +132,44 @@ public class gui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "you have pressed the Solve button");
+//                char[][] solvedBoard =  s.solve(board);
+//                for (int i = 0 ; i < 9 ; i++) {
+//                    for (int j = 0 ; j < 9 ; j++) {
+//                        char c = solvedBoard[i][j];
+//                        String s = Character.toString(c);
+//                        JTextField t = new JTextField(s);
+//                        square[i][j] = t;
+//                    }
+//
+//
+//                }
+                for (int i = 0 ; i < 9 ; i++) {
+                    for (int j = 0 ; j < 9 ; j++) {
+                        JTextField t = square[i][j];
+                        String text = t.getText();
+                        if (text.length() > 0) {
+                            int k = Integer.parseInt(text);
+                            char c = (char) (k + '0');
+                            board[i][j] = c;
+                        } else {
+                            board[i][j] = '.';
+                        }
+
+                    }
+                }
                 char[][] solvedBoard =  s.solve(board);
                 for (int i = 0 ; i < 9 ; i++) {
                     for (int j = 0 ; j < 9 ; j++) {
                         char c = solvedBoard[i][j];
-                        String s = Character.toString(c);
-                        JTextField t = new JTextField(s);
-                        square[i][j] = t;
+                        int num =  c- '0';
+                        String s = Integer.toString(num);
+                        JTextField jTextField = square[i][j];
+                        jTextField.setText(s);
+                        jTextField.setVisible(true);
+                        repaint();
+
                     }
-
-
-                }
-
-            }
+            }}
         });
 
         check = new JButton("Check Result");
