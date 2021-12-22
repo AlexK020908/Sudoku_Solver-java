@@ -9,8 +9,8 @@ public class Sudoku {
     //represents a 9 by 9 board. first bracket is column, second is row
     private char[][] board;
 
-    public Sudoku(char[][] board) {
-        this.board = board;
+    public Sudoku() {
+      
         this.isFinished = false;
     }
 
@@ -91,33 +91,6 @@ public class Sudoku {
         board[row][column] = '.';
     }
 
-
-//    public boolean backTrack(int row, int column, char[][] board) {
-//        if (row == N - 1 && column == N-1) {
-//            isFinished = true;
-//            return true;
-//        } else if (column == N - 1){
-//            row += 1;
-//            column = 0;
-//        }
-//
-//        if (board[row][column] == '.') {
-//            //iterate all possible options and call backtrack if there is a mistake
-//            for (int i = 1 ; i <= 9 ; i++) {
-//                if (isValidPlacement(row, column, i , board)) {
-//                    placeNewNum(row, column, i, board);
-//                    if (backTrack(row, column + 1, board)){
-//                        return true;
-//                    } else{
-//                        removePlacement(row, column, board);
-//                    }
-//                    //now we to be able to remove the num if somehow backtrack says there isn't a choice
-//                }
-//            }
-//        }
-//        return false;
-//    }
-
     public void backTrack(int row, int column, char[][] board) {
         if (board[row][column] == '.') {
             //iterate all possible options and call backtrack if there is a mistake
@@ -152,8 +125,10 @@ public class Sudoku {
     }
 
     //EFFECT: solve the given board.
-    public void solve(char[][] board) {
+    public char[][] solve(char[][] board) {
         backTrack(0, 0, board);
+        return board;
+
     }
 
 }

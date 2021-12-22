@@ -10,7 +10,7 @@ public class main {
                 {'.','6','.','.','.','.','2','8','.'},
                 {'.','.','.','4','1','9','.','.','5'},
                 {'.','.','.','.','8','.','.','7','9'}};
-        Sudoku sudoku = new Sudoku(board);
+        Sudoku sudoku = new Sudoku();
         sudoku.solve(board);
     }
 }

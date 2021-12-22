@@ -30,7 +30,7 @@ public class SudokuTest{
         }
 
 
-        Sudoku actual = new Sudoku(char_board);
+        Sudoku actual = new Sudoku();
         actual.solve(char_board);
 
         String[][] expected_board = {{"5","3","4","6","7","8","9","1","2"},
@@ -50,7 +50,6 @@ public class SudokuTest{
             }
         }
 
-        assertEquals(char_expected_board, char_board);
 
         for (int i = 0; i < 9; i++){
             for (int j = 0; j < 9; j++){
