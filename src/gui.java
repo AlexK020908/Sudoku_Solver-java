@@ -73,7 +73,6 @@ public class gui extends JFrame {
             }
         }
 
-
         reset = new JButton("Reset");
         reset.setSize(new Dimension(10, 40));
         reset.setBorder(new RoundedBorder(10));
