@@ -1,7 +1,7 @@
 # Sudoku-solver
 
 How to use our program:
-
+- Run the main class
 - Enter some numbers, or no numbers, and click "Create New Puzzle" to initialize the game
 - Fill out the boxes and click "Check Result" to see whether your answer is correct
 - During your process, you can click "Reset" to get back to game initial state
