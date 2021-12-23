@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class gui extends JFrame {
 
@@ -146,7 +145,7 @@ public class gui extends JFrame {
                 JOptionPane.showMessageDialog(null, "you have pressed the Check Result button");
 
                 if ( solvedBoard == board) {
-                    JOptionPane.showMessageDialog(null, "nice! you did !");
+                    JOptionPane.showMessageDialog(null, "nice! you did it!");
                 } else {
                     JOptionPane.showMessageDialog(null, "try again!");
                 }
@@ -154,13 +153,13 @@ public class gui extends JFrame {
         });
 
 
-        puzzle=new JButton("create new puzzle");
+        puzzle=new JButton("Create New Puzzle");
         puzzle.setSize(new Dimension(10, 40));
         puzzle.setBorder(new RoundedBorder(10));
         puzzle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "you have pressed the New Puzzle button");
+                JOptionPane.showMessageDialog(null, "you have pressed the Create New Puzzle button");
 
                 for (int i = 0 ; i < 9 ; i++) {
                     for (int j = 0 ; j < 9 ; j++) {

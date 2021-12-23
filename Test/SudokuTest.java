@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class SudokuTest{
-    public char[][] board = new char[9][9];
-
 
     @Test
     public void testSudoku(){
