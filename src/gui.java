@@ -100,10 +100,18 @@ public class gui extends JFrame {
                 JOptionPane.showMessageDialog(null, "you have pressed the Reset button");
                 for (int i = 0 ; i < 9 ; i++) {
                     for (int j = 0 ; j < 9 ; j++) {
-                        JTextField t = new JTextField(reset_board[i][j]);
-                        square[i][j] = t;
+                        char c = reset_board[i][j];
+                        if (c == '.') {
+                            JTextField field = square[i][j];
+                            field.setText("");
+                        } else {
+                            String s = String.valueOf(c);
+                            JTextField jTextField = square[i][j];
+                            jTextField.setText(s);
+                        }
                     }
                 }
+                repaint();
             }
         });
 
