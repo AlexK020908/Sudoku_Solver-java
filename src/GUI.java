@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-public class gui extends JFrame {
+public class GUI extends JFrame {
 
     private final JTextField[][] square;
 
@@ -213,7 +213,7 @@ public class gui extends JFrame {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        gui gui = (gui) o;
+        GUI gui = (GUI) o;
         return Arrays.deepEquals(solvedBoard, gui.solvedBoard) && Arrays.deepEquals(board, gui.board);
     }
 
