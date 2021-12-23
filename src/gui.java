@@ -227,7 +227,6 @@ public class gui extends JFrame {
         frame.add(b2,BorderLayout.SOUTH);
         frame.pack();
         frame.setVisible(true);
-
     }
 
 
