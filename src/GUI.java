@@ -130,6 +130,7 @@ public class GUI extends JFrame {
             }
         });
 
+        //wdwd
         solve=new JButton("Solve");
         solve.setSize(new Dimension(10, 40));
         solve.setBorder(new RoundedBorder(10));
