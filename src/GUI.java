@@ -8,12 +8,25 @@ import java.util.Arrays;
 
 public class GUI extends JFrame {
 
+    private final char[][] clearBoard = {
+            {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' },
+            {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' },
+            {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' },
+            {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' },
+            {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' },
+            {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' },
+            {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' },
+            {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' },
+            {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' }
+
+    };
     private final JTextField[][] square;
 
     JButton reset, clear, solve, check, puzzle;
 
-    JLabel difficulty, b1, b2;
-    JComboBox difficultyBox;
+    JLabel  b1, b2;
+    private char[][] resetBoard = new char[9][9];
+
 
     Border exteriorBorder = new LineBorder(Color.BLACK, 2);
     Border dividerBorder = new LineBorder(Color.BLACK, 1);
@@ -82,12 +95,14 @@ public class GUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "you have pressed the Reset button");
                 for (int i = 0 ; i < 9 ; i++) {
                     for (int j = 0 ; j < 9 ; j++) {
-                        char c = board[i][j];
+                        char c = resetBoard[i][j];
                         if (c == '.') {
                             JTextField field = square[i][j];
                             field.setText("");
                         } else {
                             String s = String.valueOf(c);
+                            char c1 = s.charAt(0);
+                            board[i][j] = c1;
                             JTextField jTextField = square[i][j];
                             jTextField.setText(s);
                         }
@@ -103,13 +118,14 @@ public class GUI extends JFrame {
         clear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "you have pressed the Clear button");
                 for (int i = 0 ; i < 9 ; i++) {
                     for (int j = 0 ; j < 9 ; j++) {
                         JTextField field = square[i][j];
                         field.setText("");
+
                     }
                 }
+                board = clearBoard;
                 repaint();
             }
         });
@@ -124,7 +140,8 @@ public class GUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "you have pressed the Solve button");
 
 
-                solvedBoard =  s.solve(board);
+
+
                 for (int i = 0 ; i < 9 ; i++) {
                     for (int j = 0 ; j < 9 ; j++) {
                         char c = solvedBoard[i][j];
@@ -144,12 +161,34 @@ public class GUI extends JFrame {
         check = new JButton("Check Result");
         check.setSize(new Dimension(10, 40));
         check.setBorder(new RoundedBorder(10));
-        check.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "you have pressed the Check Result button");
-            if (solvedBoard == board) {
-                JOptionPane.showMessageDialog(null, "nice! you did it!");
-            } else {
-                JOptionPane.showMessageDialog(null, "try again!");
+        check.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0 ; i < 9 ; i++) {
+                    for (int j = 0 ; j < 9 ; j++) {
+                        JTextField jTextField = square[i][j];
+                        String s = jTextField.getText();
+                        if (!s.isEmpty()) {
+
+                            Integer integer = Integer.parseInt(s);
+                            char c = solvedBoard[i][j];
+                            Integer integer2 = Character.getNumericValue(c);
+                            if (integer != integer2) {
+                                JOptionPane.showMessageDialog(null, "not correct");
+                                return;
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "you did not finish !");
+                            return;
+                        }
+
+
+
+                    }
+                }
+
+                JOptionPane.showMessageDialog(null, "correct!");
+                return;
             }
         });
 
@@ -162,6 +201,8 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "you have pressed the Create New Puzzle button");
 
+
+                resetBoard = new char[9][9];
                 for (int i = 0 ; i < 9 ; i++) {
                     for (int j = 0 ; j < 9 ; j++) {
                         JTextField t = square[i][j];
@@ -170,21 +211,21 @@ public class GUI extends JFrame {
                             int k = Integer.parseInt(text);
                             char c = (char) (k + '0');
                             board[i][j] = c;
+                            resetBoard[i][j] = c;
                         } else {
                             board[i][j] = '.';
+                            resetBoard[i][j] = '.';
                         }
 
                     }
                 }
+
+                solvedBoard =  s.solve(board);
             }
         });
 
-        difficulty=new JLabel("Difficulty: ");
-        difficulty.setHorizontalAlignment(JLabel.CENTER);
 
-        String[] difficulties = { "Easy", "Medium", "Hard" };
-        difficultyBox = new JComboBox(difficulties);
-        difficultyBox.setSelectedIndex(1);
+
 
 
         JPanel p2 = new JPanel();
@@ -194,8 +235,7 @@ public class GUI extends JFrame {
         p2.add(solve);
         p2.add(check);
         p2.add(puzzle);
-        p2.add(difficulty);
-        p2.add(difficultyBox);
+
 
         b1=new JLabel(" ");
         b2=new JLabel(" ");
@@ -209,18 +249,4 @@ public class GUI extends JFrame {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GUI gui = (GUI) o;
-        return Arrays.deepEquals(solvedBoard, gui.solvedBoard) && Arrays.deepEquals(board, gui.board);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Arrays.deepHashCode(solvedBoard);
-        result = 31 * result + Arrays.deepHashCode(board);
-        return result;
-    }
 }
