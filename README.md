@@ -9,5 +9,5 @@ How to use our program:
 - Clicker "Clear Eveything" to wipe out the whole board
 
 
-https://user-images.githubusercontent.com/96352305/147708050-5f79dfca-3071-4edf-be14-8b22b9a6c5ea.mp4
+
 
