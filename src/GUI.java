@@ -4,10 +4,10 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class GUI extends JFrame {
 
+    // state of the board after clearing
     private final char[][] clearBoard = {
             {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' },
             {'.', '.' , '.', '.', '.', '.', '.', '.' ,'.' },
@@ -22,12 +22,13 @@ public class GUI extends JFrame {
     };
     private final JTextField[][] square;
 
+    // create all the buttons needed
     JButton reset, clear, solve, check, puzzle;
 
     JLabel  b1, b2;
     private char[][] resetBoard = new char[9][9];
 
-
+    // board line thicknesses
     Border exteriorBorder = new LineBorder(Color.BLACK, 2);
     Border dividerBorder = new LineBorder(Color.BLACK, 1);
 
@@ -42,7 +43,10 @@ public class GUI extends JFrame {
 
         int i, j;
         square=new JTextField[9][9];
+        // Font size and style
         Font font = new Font("Verdana", Font.BOLD, 30);
+
+        // create JTextField for every position on the grid
         for(i=0;i<9;i++)
         {
             for(j=0;j< 9;j++)
@@ -86,6 +90,7 @@ public class GUI extends JFrame {
             }
         }
 
+        // button for reset
         reset = new JButton("Reset");
         reset.setSize(new Dimension(10, 40));
         reset.setBorder(new RoundedBorder(10));
@@ -112,6 +117,7 @@ public class GUI extends JFrame {
             }
         });
 
+        // button for clear
         clear = new JButton("Clear Everything");
         clear.setSize(new Dimension(10, 40));
         clear.setBorder(new RoundedBorder(10));
@@ -130,7 +136,7 @@ public class GUI extends JFrame {
             }
         });
 
-        //wdwd
+        // button for Solve
         solve=new JButton("Solve");
         solve.setSize(new Dimension(10, 40));
         solve.setBorder(new RoundedBorder(10));
@@ -159,6 +165,7 @@ public class GUI extends JFrame {
             }
         });
 
+        //button for check
         check = new JButton("Check Result");
         check.setSize(new Dimension(10, 40));
         check.setBorder(new RoundedBorder(10));
@@ -189,11 +196,10 @@ public class GUI extends JFrame {
                 }
 
                 JOptionPane.showMessageDialog(null, "correct!");
-                return;
             }
         });
 
-
+        // button for puzzle
         puzzle=new JButton("Create New Puzzle");
         puzzle.setSize(new Dimension(10, 40));
         puzzle.setBorder(new RoundedBorder(10));
